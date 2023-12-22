@@ -1,0 +1,196 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  overflow: hidden;
+  font-family: sans-serif;
+  background-color: #3c3c3c;
+  color: white;
+}
+
+.page {
+  height: 100vh;
+
+  padding: 1em 10vw;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  line-height: 1.6em;
+}
+
+.glass-card {
+  padding: 3.4em 3em;
+  background: linear-gradient(to bottom, #607bf480, #0d23647a);
+  border-radius: 8px;
+
+  display: flex;
+  flex-direction: column;
+  backdrop-filter: blur(10px);
+
+  box-shadow: inset 0px 0px 1px rgba(156, 154, 255, 0.527),
+    0px 0px 0.3px rgba(165, 186, 255, 0.527);
+}
+
+.text-card {
+  width: 300px;
+  height: 200px;
+  perspective: 1000px;
+  transform-style: preserve-3d;
+  transition: transform 0.5s;
+}
+
+.text-card:hover {
+  transform: scale(1.1);
+}
+
+.text-card-content {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  padding: 20px;
+  box-sizing: border-box;
+  background-color: #fff;
+  color: #333;
+  border-radius: 10px;
+  transform: translateZ(50px);
+
+  font-size: 1.2em;
+}
+
+.page article {
+  text-align: center;
+}
+
+.page-number {
+  font-family: cursive;
+  font-size: x-large;
+  font-weight: bolder;
+  position: fixed;
+  bottom: 3%;
+  right: 3%;
+
+  padding: 0.3em 0.6em;
+  border-radius: 0% 35% 0% 35%;
+  background-color: rgb(255, 255, 255);
+  color: rgb(25, 0, 255);
+  cursor: pointer;
+}
+
+.bubbles {
+  position: fixed;
+  bottom: 3%;
+  z-index: -10;
+}
+
+/* Default/Common for all pages */
+
+h1 {
+  font-size: 2em;
+  font-weight: 700;
+
+  text-shadow: 0px 0px 3px #727bff81;
+  padding: 20px;
+}
+
+h2 {
+  font-size: 1.3em;
+  font-weight: 600;
+  padding: 20px;
+}
+
+h3 {
+  font-size: 1.1em;
+  font-weight: 600;
+
+  padding: 20px;
+}
+
+h1,
+h2,
+h3 {
+  text-transform: uppercase;
+}
+
+/* Changes for some pages as required */
+
+/* Page 1 */
+
+#home {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#home h1 {
+  padding: 20px;
+}
+
+#home p {
+  text-align: center;
+  font-size: 1.2em;
+  padding: 10px;
+}
+
+/* Page 2 */
+
+#about-me article {
+  font-size: larger;
+  font-style: italic;
+}
+
+#about-me article p {
+  width: 100%;
+  text-align: center;
+  line-height: 1.5em;
+}
+
+/* Page 3 */
+
+#programming-languages article p {
+  text-transform: capitalize;
+  font-size: larger;
+}
+
+/* Page 4 */
+
+#education article p {
+  text-align: left;
+
+  line-height: 2.5em;
+}
+
+/* Projects */
+
+#projects {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+#projects article .project {
+  margin: 20px;
+}
+
+a {
+  all: unset;
+  display: block;
+  margin: 20px;
+  padding: 10px;
+
+  border-radius: 6px;
+  background-color: rgb(72, 30, 255);
+  color: rgb(255, 255, 255);
+
+  box-shadow: 0px 0px 1px gray;
+}
+
+a:visited {
+  color: rgb(255, 255, 255);
+}
