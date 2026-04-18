@@ -1,87 +1,599 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="styles.css" />
-    <title>Dipak Giri - Portfolio</title>
-  </head>
-  <body>
-    <!-- To display they current page index -->
-    <div class="page-number">1</div>
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dipak Giri — Back-end Developer</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 
-    <div id="scroll-container">
-      <section class="page" id="home">
-        <h1>Dipak Giri</h1>
-        <p>Web Development | Data Science</p>
-      </section>
+  <style>
+    :root {
+      --ink:   #161411;
+      --paper: #F6F2EA;
+      --warm:  #EDE8DE;
+      --rule:  #CFC9BC;
+      --rust:  #A84B2F;
+      --muted: #8C8478;
+      --faint: #B8B2A6;
+    }
 
-      <section class="page" id="about-me">
-        <article class="glass-card">
-          <h2>About Me</h2>
-          <p>
-            Aspiring data scientist and recent computer science graduate with a
-            fresh perspective, fueled by a passion for machine learning. Eager
-            to contribute innovative solutions and embark on a rewarding journey
-            in the tech industry.
-          </p>
-        </article>
-      </section>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
 
-      <section class="page" id="programming-languages">
-        <article class="glass-card">
-          <h2>Programming Languages</h2>
-          <p>HTML, CSS, JavaScript, PHP, MySQL &amp; Python.</p>
-        </article>
-      </section>
+    body {
+      background: var(--paper);
+      color: var(--ink);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      font-size: 15px;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
 
-      <section class="page" id="education">
-        <article class="glass-card">
-          <h2>Education</h2>
+    body::after {
+      content: '';
+      position: fixed; inset: 0;
+      pointer-events: none;
+      z-index: 900;
+      opacity: 0.025;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23g)'/%3E%3C/svg%3E");
+    }
 
-          <h3>Higher Education</h3>
+    /* NAV */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 1.4rem 3rem;
+      background: var(--paper);
+      border-bottom: 1px solid var(--rule);
+    }
+    .nav-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 400;
+      font-size: 1rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    .nav-links { display: flex; gap: 2.5rem; }
+    .nav-links a {
+      font-size: 0.72rem;
+      font-weight: 400;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.2s;
+      position: relative;
+    }
+    .nav-links a::after {
+      content: '';
+      position: absolute; bottom: -2px; left: 0; right: 0;
+      height: 1px; background: var(--rust);
+      transform: scaleX(0); transform-origin: left;
+      transition: transform 0.3s ease;
+    }
+    .nav-links a:hover { color: var(--ink); }
+    .nav-links a:hover::after { transform: scaleX(1); }
 
-          <p>
-            <span style="font-weight: 600">
-              Bachelor of Science (Honors in Computer Science) - CGPA: 8.5 (1st
-              class)
-            </span>
-          </p>
-          <p>
-            From Netaji Nagar Day College, affiliated with Calcutta University
-          </p>
+    /* HERO */
+    #hero {
+      padding: 14rem 3rem 5rem;
+      border-bottom: 1px solid var(--rule);
+    }
+    .hero-eyebrow {
+      font-size: 0.72rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--faint);
+      display: flex; align-items: center; gap: 1rem;
+      margin-bottom: 2.5rem;
+    }
+    .hero-eyebrow::before {
+      content: '';
+      display: inline-block;
+      width: 2rem; height: 1px;
+      background: var(--rust);
+    }
+    .hero-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+      font-size: clamp(4.5rem, 11vw, 10rem);
+      line-height: 0.88;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+    }
+    .hero-name em { font-style: italic; color: var(--rust); }
 
-          <h3>High School</h3>
-          <p>10th class - 85% (A+)</p>
-          <p>12th class (PCM with Computer Science) - 75% (First Division)</p>
-          <p>From Khanpur High School, affiliated with WBBSE & WBCHSE</p>
-        </article>
-      </section>
+    .hero-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-top: 4rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--rule);
+      flex-wrap: wrap;
+      gap: 2rem;
+    }
+    .hero-role-line {
+      font-size: 0.7rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 0.4rem;
+    }
+    .hero-co {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.4rem;
+      font-weight: 400;
+    }
+    .avail {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      margin-top: 0.9rem;
+      font-size: 0.68rem; letter-spacing: 0.14em;
+      text-transform: uppercase; color: var(--rust);
+    }
+    .avail-dot {
+      width: 6px; height: 6px;
+      background: var(--rust); border-radius: 50%;
+      animation: pulseD 2s ease-in-out infinite;
+    }
+    @keyframes pulseD { 0%,100%{opacity:1} 50%{opacity:0.35} }
 
-      <section class="page" id="projects">
-        <article class="glass-card">
-          <h2>Project Works</h2>
+    .hero-blurb {
+      max-width: 360px;
+      font-size: 0.82rem;
+      color: var(--muted);
+      line-height: 1.9;
+    }
 
-          <div class="project text-card">
-            <div class="text-card-content">
-              <span>
-                Lung Disease Detection with AI: Detection of Pneumonia from
-                Chest x-rays.
-              </span>
-              <a
-                href="https://github.com/dipakexe/FINAL_YEAR_PROJECT_2023"
-                target="_blank"
-              >
-                Github repo
-              </a>
-            </div>
-          </div>
-        </article>
-      </section>
+    /* SECTION LAYOUT */
+    .sec {
+      padding: 6rem 3rem;
+      border-bottom: 1px solid var(--rule);
+    }
+    .two-col {
+      display: grid;
+      grid-template-columns: 200px 1fr;
+      gap: 4rem;
+      align-items: start;
+    }
+    .sec-label {
+      font-size: 0.65rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--faint);
+      padding-top: 0.25rem;
+    }
+    .sec-num {
+      display: block;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.65rem;
+      color: var(--rule);
+      margin-bottom: 0.4rem;
+    }
+
+    /* ABOUT */
+    .about-prose {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+      font-size: clamp(1.5rem, 2.4vw, 2rem);
+      line-height: 1.55;
+    }
+    .about-prose em { font-style: italic; color: var(--rust); }
+    .stat-val {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 3rem;
+      font-weight: 300;
+      line-height: 1;
+      color: var(--rust);
+    }
+    .stat-lbl {
+      font-size: 0.65rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--faint);
+      margin-top: 0.4rem;
+    }
+
+    /* STACK */
+    .sg { margin-bottom: 2.5rem; }
+    .sg-name {
+      font-size: 0.62rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--faint);
+      padding-bottom: 0.6rem;
+      border-bottom: 1px solid var(--rule);
+      margin-bottom: 0.9rem;
+    }
+    .tech {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.2rem;
+      font-weight: 400;
+      display: inline-block;
+      margin-right: 1.5rem;
+      padding-bottom: 1px;
+      border-bottom: 1px solid transparent;
+      transition: color 0.2s, border-color 0.2s;
+      cursor: default;
+    }
+    .tech:hover { color: var(--rust); border-bottom-color: var(--rust); }
+
+    /* EXP */
+    .exp-blk { padding: 2.5rem 0; border-bottom: 1px solid var(--rule); }
+    .exp-blk:last-child { border-bottom: none; }
+    .exp-header { display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 1rem; margin-bottom: 0.75rem; }
+    .exp-co {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.7rem;
+      font-weight: 400;
+    }
+    .exp-when {
+      font-size: 0.65rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--faint);
+    }
+    .exp-title-line {
+      font-size: 0.72rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--rust);
+      margin-bottom: 0.9rem;
+    }
+    .exp-body { font-size: 0.82rem; color: var(--muted); line-height: 1.9; max-width: 580px; }
+
+    /* PROJECTS */
+    .proj-row {
+      display: grid;
+      grid-template-columns: 2.5rem 1fr auto;
+      gap: 2rem;
+      padding: 2.2rem 0;
+      border-bottom: 1px solid var(--rule);
+      align-items: start;
+      transition: background 0.3s, padding 0.3s, margin 0.3s;
+    }
+    .proj-row:last-child { border-bottom: none; }
+    .proj-row:hover { background: var(--warm); margin: 0 -3rem; padding-left: 3rem; padding-right: 3rem; }
+    .proj-idx {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.85rem;
+      color: var(--faint);
+      padding-top: 0.25rem;
+    }
+    .proj-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.6rem;
+      font-weight: 400;
+      line-height: 1.2;
+      margin-bottom: 0.6rem;
+      transition: transform 0.25s;
+    }
+    .proj-body { font-size: 0.8rem; color: var(--muted); line-height: 1.88; max-width: 560px; }
+    .proj-tags { display: flex; flex-direction: column; align-items: flex-end; gap: 0.3rem; }
+    .pt {
+      font-size: 0.6rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--faint);
+      white-space: nowrap;
+    }
+
+    /* CONTACT */
+    .contact-hed {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+      font-size: clamp(2.5rem, 6.5vw, 5.5rem);
+      line-height: 0.95;
+      letter-spacing: -0.02em;
+    }
+    .contact-hed em { font-style: italic; color: var(--rust); }
+    .clink {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.1rem;
+      color: var(--ink);
+      text-decoration: none;
+      border-bottom: 1px solid var(--ink);
+      padding-bottom: 1px;
+      transition: color 0.2s, border-color 0.2s;
+    }
+    .clink:hover { color: var(--rust); border-color: var(--rust); }
+    .cfield { margin-bottom: 0.4rem; font-size: 0.62rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--faint); }
+
+    footer {
+      padding: 1.5rem 3rem;
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      color: var(--faint);
+      flex-wrap: wrap; gap: 0.5rem;
+    }
+
+    /* GSAP start states */
+    .g-fade { opacity: 0; }
+    .g-rise { opacity: 0; transform: translateY(22px); }
+
+    @media(max-width: 768px) {
+      nav { padding: 1.1rem 1.5rem; }
+      #hero { padding: 10rem 1.5rem 4rem; }
+      .sec { padding: 4rem 1.5rem; }
+      .two-col { grid-template-columns: 1fr; gap: 2rem; }
+      .proj-row { grid-template-columns: 2rem 1fr; }
+      .proj-tags { display: none; }
+      .proj-row:hover { margin: 0; padding-left: 0; padding-right: 0; }
+      footer { padding: 1.2rem 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+<nav id="nav">
+  <div class="nav-name">Dipak Giri</div>
+  <div class="nav-links">
+    <a href="#about">About</a>
+    <a href="#stack">Stack</a>
+    <a href="#projects">Work</a>
+    <a href="#contact">Contact</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-eyebrow g-fade">Back-end Developer · Python · FastAPI</div>
+  <h1 class="hero-name">
+    <span class="g-rise" style="display:block">Dipak</span>
+    <span class="g-rise" style="display:block"><em>Giri.</em></span>
+  </h1>
+  <div class="hero-bottom">
+    <div class="g-rise">
+      <div class="hero-role-line">Currently at</div>
+      <div class="hero-co">Openweb Solutions</div>
+      <div class="avail"><span class="avail-dot"></span>Open to new roles</div>
     </div>
+    <p class="hero-blurb g-rise">
+      Python developer who builds the invisible layer that makes products work —
+      APIs, databases, background jobs, and the occasional LLM integration.
+    </p>
+  </div>
+</section>
 
-    <div class="bubbles"></div>
+<!-- ABOUT -->
+<section class="sec" id="about">
+  <div class="two-col">
+    <div class="sec-label g-fade"><span class="sec-num">01</span>About</div>
+    <div>
+      <p class="about-prose g-rise">
+        I design and ship <em>back-end systems</em> that hold up under real conditions.
+        Multi-tenant platforms, financial CRMs, mobile app infrastructure — built with
+        FastAPI, PostgreSQL, and a preference for things that are boring to maintain
+        in the best possible way.
+      </p>
+      <div style="display:grid;grid-template-columns:repeat(3,auto);gap:2.5rem;margin-top:3rem;width:fit-content">
+        <div class="g-rise">
+          <div class="stat-val">3+</div>
+          <div class="stat-lbl">Products<br>shipped</div>
+        </div>
+        <div class="g-rise">
+          <div class="stat-val">6+</div>
+          <div class="stat-lbl">Modules<br>built</div>
+        </div>
+        <div class="g-rise">
+          <div class="stat-val">4+</div>
+          <div class="stat-lbl">Database<br>systems</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
-    <script src="script.js" defer></script>
-  </body>
+<!-- STACK -->
+<section class="sec" id="stack">
+  <div class="two-col">
+    <div class="sec-label g-fade"><span class="sec-num">02</span>Tech Stack</div>
+    <div>
+      <div class="sg g-rise">
+        <div class="sg-name">Languages</div>
+        <span class="tech">Python</span>
+        <span class="tech">Node.js</span>
+      </div>
+      <div class="sg g-rise">
+        <div class="sg-name">Frameworks & Libraries</div>
+        <span class="tech">FastAPI</span>
+        <span class="tech">Pydantic</span>
+        <span class="tech">SQLAlchemy</span>
+      </div>
+      <div class="sg g-rise">
+        <div class="sg-name">Databases</div>
+        <span class="tech">PostgreSQL</span>
+        <span class="tech">MySQL</span>
+        <span class="tech">MongoDB</span>
+        <span class="tech">Redis</span>
+      </div>
+      <div class="sg g-rise">
+        <div class="sg-name">Infrastructure & Tooling</div>
+        <span class="tech">Celery</span>
+        <span class="tech">Docker Compose</span>
+        <span class="tech">Ubuntu</span>
+        <span class="tech">Git</span>
+      </div>
+      <div class="sg g-rise">
+        <div class="sg-name">AI / LLM</div>
+        <span class="tech">LLM API Integration</span>
+        <span class="tech">Document Extraction</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section class="sec" id="experience">
+  <div class="two-col">
+    <div class="sec-label g-fade"><span class="sec-num">03</span>Experience</div>
+    <div>
+      <div class="exp-blk g-rise">
+        <div class="exp-header">
+          <div class="exp-co">Openweb Solutions</div>
+          <div class="exp-when">Current</div>
+        </div>
+        <div class="exp-title-line">Python Back-end Developer</div>
+        <p class="exp-body">
+          Delivered multiple production systems — a subscription-based multi-tenant project
+          management platform, a financial CRM with LLM-powered document extraction, and a
+          complete navigation app back-end. Worked across the full service lifecycle: schema
+          design, API layer, background job orchestration with Celery, and Docker-based deployment.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section class="sec" id="projects">
+  <div class="two-col" style="margin-bottom:3rem">
+    <div class="sec-label g-fade"><span class="sec-num">04</span>Selected Work</div>
+    <div></div>
+  </div>
+
+  <div class="proj-row g-rise">
+    <div class="proj-idx">01</div>
+    <div>
+      <div class="proj-name">Project Management Software</div>
+      <p class="proj-body">
+        Multi-tenant, subscription-based PMS built with FastAPI and PostgreSQL.
+        Six production modules — HRMS, Geo-location, Leave Management, Training Management,
+        Asset Management, and a QR service layer — all behind tenant-isolated data
+        boundaries with per-module feature toggles.
+      </p>
+    </div>
+    <div class="proj-tags">
+      <span class="pt">FastAPI</span>
+      <span class="pt">PostgreSQL</span>
+      <span class="pt">Multi-tenant</span>
+      <span class="pt">SaaS</span>
+    </div>
+  </div>
+
+  <div class="proj-row g-rise">
+    <div class="proj-idx">02</div>
+    <div>
+      <div class="proj-name">Navigation App Back-end</div>
+      <p class="proj-body">
+        Complete REST API infrastructure for a consumer mobile navigation application.
+        Real-time location endpoints, route computation, user session management,
+        and Redis-backed caching for low-latency responses.
+      </p>
+    </div>
+    <div class="proj-tags">
+      <span class="pt">FastAPI</span>
+      <span class="pt">Redis</span>
+      <span class="pt">Mobile API</span>
+    </div>
+  </div>
+
+  <div class="proj-row g-rise">
+    <div class="proj-idx">03</div>
+    <div>
+      <div class="proj-name">Financial CRM & Analytics</div>
+      <p class="proj-body">
+        Back-end for a financial data collection and analytics platform. Integrated an LLM API to
+        extract structured data from uploaded financial documents, dramatically reducing manual
+        entry. Built analytics aggregation endpoints and a full reporting layer on a
+        PostgreSQL + MongoDB hybrid store.
+      </p>
+    </div>
+    <div class="proj-tags">
+      <span class="pt">FastAPI</span>
+      <span class="pt">LLM API</span>
+      <span class="pt">PostgreSQL</span>
+      <span class="pt">MongoDB</span>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="sec" id="contact" style="border-bottom:none">
+  <div class="two-col" style="margin-bottom:3rem">
+    <div class="sec-label g-fade"><span class="sec-num">05</span>Contact</div>
+    <div></div>
+  </div>
+  <h2 class="contact-hed g-rise" style="margin-bottom:3rem">
+    Let's work<br><em>together.</em>
+  </h2>
+  <div style="display:flex;gap:3.5rem;flex-wrap:wrap;align-items:flex-start" class="g-rise">
+    <div>
+      <div class="cfield">Email</div>
+      <a href="mailto:dipakgiri@example.com" class="clink">dipakgiri@example.com</a>
+    </div>
+    <div>
+      <div class="cfield">GitHub</div>
+      <a href="https://github.com" target="_blank" class="clink">github.com/dipakgiri</a>
+    </div>
+    <div>
+      <div class="cfield">LinkedIn</div>
+      <a href="https://linkedin.com" target="_blank" class="clink">linkedin.com/in/dipakgiri</a>
+    </div>
+  </div>
+  <p style="margin-top:2.5rem;font-size:0.78rem;color:var(--faint);max-width:420px;line-height:1.85" class="g-rise">
+    Open to full-time back-end positions, contract work, and interesting projects
+    involving APIs, distributed systems, or AI integration.
+  </p>
+</section>
+
+<footer>
+  <span>© 2025 Dipak Giri</span>
+  <span>Python · FastAPI · PostgreSQL · Redis</span>
+</footer>
+
+<script>
+  gsap.registerPlugin(ScrollTrigger);
+
+  // Nav
+  gsap.from('#nav', { y: -48, opacity: 0, duration: 0.65, ease: 'power2.out' });
+
+  // Hero
+  const tl = gsap.timeline({ delay: 0.25 });
+  tl.to('.hero-eyebrow', { opacity: 1, duration: 0.5 })
+    .to('#hero .g-rise', { opacity: 1, y: 0, duration: 0.8, stagger: 0.1, ease: 'power3.out' }, '-=0.2');
+
+  // Scroll-triggered reveals
+  document.querySelectorAll('.sec .g-fade').forEach(el => {
+    gsap.to(el, {
+      opacity: 1, duration: 0.6, ease: 'power2.out',
+      scrollTrigger: { trigger: el, start: 'top 87%', toggleActions: 'play none none none' }
+    });
+  });
+
+  document.querySelectorAll('.sec .g-rise').forEach(el => {
+    gsap.to(el, {
+      opacity: 1, y: 0, duration: 0.7, ease: 'power2.out',
+      scrollTrigger: { trigger: el, start: 'top 87%', toggleActions: 'play none none none' }
+    });
+  });
+
+  // Project row hover — slide name
+  document.querySelectorAll('.proj-row').forEach(row => {
+    const name = row.querySelector('.proj-name');
+    row.addEventListener('mouseenter', () => gsap.to(name, { x: 8, duration: 0.25, ease: 'power2.out' }));
+    row.addEventListener('mouseleave', () => gsap.to(name, { x: 0, duration: 0.25, ease: 'power2.out' }));
+  });
+
+  // Nav active highlight
+  ['about','stack','experience','projects','contact'].forEach(id => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    ScrollTrigger.create({
+      trigger: el, start: 'top 45%', end: 'bottom 45%',
+      onToggle: self => {
+        document.querySelectorAll('.nav-links a').forEach(a => {
+          a.style.color = (self.isActive && a.getAttribute('href') === `#${id}`) ? 'var(--ink)' : '';
+        });
+      }
+    });
+  });
+</script>
+</body>
 </html>
